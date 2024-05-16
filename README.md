@@ -10,3 +10,5 @@
 
 A skeleton framework for setting up a site-file based project workflow
 using the malariaverse, orderly2 and the cluster.
+
+<img src="malaria_project_image.png" alt="Malaria Software Project" width="600">
