@@ -19,11 +19,18 @@ orderly2::orderly_run(name = "site_file")
 # ------------------------------------------------------------------------------
 
 # Make and adjustments/update to the base site-file ----------------------------
-
+orderly2::orderly_run(name = "adjust_site_file")
 # ------------------------------------------------------------------------------
 
 # Recalibrate the site file ----------------------------------------------------
 ## This step may not be required, depending on updates in previous steps
+## This is done on the cluster, sending the site_file to a multi-core node
+## where individual site calibrations are run in parallel.
+calibration_task <- hipercow::task_create_expr(
+  orderly2::orderly_run(name = "calibration"),
+  parallel = hipercow::hipercow_parallel("parallel"),
+  resources = hipercow::hipercow_resources(cores = 32)
+)
 # ------------------------------------------------------------------------------
 
 # Design scenarios -------------------------------------------------------------
