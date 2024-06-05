@@ -69,6 +69,8 @@ parallel::stopCluster(cl = cluster)
 # TODO: 
 ## This is where any calibration diagnostic summaries/runs can be created as
 ## outputs.
+## You likely will want to use the package postie to help format raw model output
+### https://mrc-ide.github.io/postie/
 
 # Collate EIR
 eir_estimates <- 

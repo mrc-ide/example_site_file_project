@@ -7,7 +7,7 @@ orderly2::orderly_description(
 
 # Dependencies come from previously run reports
 orderly2::orderly_dependency(
-  name = "create_base_site_file",
+  name = "site_file",
   query = "latest()",
   files = c(
     "site_file.rds"

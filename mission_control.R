@@ -33,18 +33,41 @@ orderly2::orderly_run(name = "adjust_site_file")
 calibration_task <- hipercow::task_create_expr(
   orderly2::orderly_run(name = "calibration"),
   parallel = hipercow::hipercow_parallel("parallel"),
+  # You could tailor cores if number to calibrate < 32
   resources = hipercow::hipercow_resources(cores = 32)
 )
 # ------------------------------------------------------------------------------
 
 # Design scenarios -------------------------------------------------------------
+scenarios <- c("a", "b")
 
+for(scenario in scenarios){
+  orderly2::orderly_run(
+    name = "scenario",
+    parameters = list(
+      scenario = scenario
+    )
+  )
+}
 # ------------------------------------------------------------------------------
 
 # Run scenarios ----------------------------------------------------------------
-
+run_task <- list()
+for(scenario in scenarios){
+  run_task[[scenario]] <- hipercow::task_create_expr(
+    orderly2::orderly_run(
+      name = "run",
+      parameters = list(
+        scenario = scenario
+      )
+    ),
+    parallel = hipercow::hipercow_parallel("parallel"),
+    # You could tailor cores if number to calibrate < 32
+    resources = hipercow::hipercow_resources(cores = 32)
+  )
+}
 # ------------------------------------------------------------------------------
 
 # Process, visualise and summarise ---------------------------------------------
-
+orderly2::orderly_run(name = "post")
 # ------------------------------------------------------------------------------
